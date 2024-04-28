@@ -4,8 +4,8 @@
 
 ;; Author: Samuel W. Flint <me@samuelwflint.com>
 ;; version: 0.0.1
-;; Package-Requires: ((universal-sidecar "2.5.0") (denote "3.0.0"))
-;; Keywords: text, notes
+;; Package-Requires: ((universal-sidecar "2.5.0") (denote "2.2.4") (emacs "27.1"))
+;; Keywords: convenience, files, notes, hypermedia
 ;; URL: https://git.sr.ht/~swflint/denote-sections
 ;; SPDX-License-Identifier: GPL-3.0-or-later
 ;; SPDX-FileCopyrightText: 2024 Samuel W. Flint <swflint@flintfam.org>
@@ -24,8 +24,8 @@
 ;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;; Commentary:
-
 ;;
+;; TODO
 
 ;;; Code:
 
@@ -35,25 +35,25 @@
 
 ;; Backlinks Section
 
-(defvar-local denote-backlinks-cache nil
+(defvar-local denote-sections-backlinks-cache nil
   "Cache data for backlinks.")
 
-(defun denote-backlinks--get-backlinks (buffer)
+(defun denote-sections-backlinks--get-backlinks (buffer)
   "Get denote backlinks for BUFFER."
   (with-current-buffer buffer
-    (if denote-backlinks-cache
-        denote-backlinks-cache          ;TODO: handle cache invalidation
+    (if denote-sections-backlinks-cache
+        denote-sections-backlinks-cache          ;TODO: handle cache invalidation
       (when-let* ((filename buffer-file-name)
                   (id (denote-retrieve-filename-identifier filename))
                   (xref-file-name-display 'abs)
                   (dir (denote-directory))
                   (xref-alist (xref--analyze (xref-matches-in-files id (denote-directory-files nil :omit-current :text-only)))))
-        (setq-local denote-backlinks-cache xref-alist)))))
+        (setq-local denote-sections-backlinks-cache xref-alist)))))
 
-(universal-sidecar-define-section denote-backlinks-section () (:predicate (stringp buffer-file-name))
+(universal-sidecar-define-section denote-sections-backlinks-section () (:predicate (stringp buffer-file-name))
   "Display backlinks for denote buffers."
-  (when-let* ((backlinks (denote-backlinks--get-backlinks buffer)))
-    (universal-sidecar-insert-section denote-backlinks-section "Backlinks:"
+  (when-let* ((backlinks (denote-sections-backlinks--get-backlinks buffer)))
+    (universal-sidecar-insert-section denote-sections-backlinks-section "Backlinks:"
       (insert (universal-sidecar-fontify-as org-mode ()
                 (with-temp-buffer
                   (dolist (group backlinks)
