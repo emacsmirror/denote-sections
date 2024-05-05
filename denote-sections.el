@@ -3,7 +3,7 @@
 ;; Copyright (C) 2024  Samuel W. Flint
 
 ;; Author: Samuel W. Flint <me@samuelwflint.com>
-;; version: 0.1.0
+;; version: 0.2.0
 ;; Package-Requires: ((universal-sidecar "2.5.0") (denote "2.2.4") (emacs "27.1"))
 ;; Keywords: convenience, files, notes, hypermedia
 ;; URL: https://git.sr.ht/~swflint/denote-sections
@@ -69,10 +69,14 @@
                       (insert (format " - [[file:%s][%s]] :: \n"
                                       (denote-get-file-name-relative-to-denote-directory filename)
                                       (denote-retrieve-title-value filename (denote-filetype-heuristics filename))))
-                      (dolist (xref (cdr group))
-                        (pcase-let (((cl-struct xref-item summary location) xref))
-                          (let ((line (xref-location-line location)))
-                            (insert (format "    + [[file:%s:%d][%d]]: %s\n" filename line line summary)))))))
+                      (let ((last-line 0))
+                        (dolist (xref (cdr group))
+                          (pcase-let (((cl-struct xref-item summary location) xref))
+                            (let ((line (xref-location-line location)))
+                              (insert (if (= line last-line)
+                                          summary
+                                        (format "    + [[file:%s:%d][%d]]: %s\n" filename line line summary)))
+                              (setf last-line line)))))))
                   (buffer-string)))))))
 
 (provide 'denote-sections)
