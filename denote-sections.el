@@ -3,7 +3,7 @@
 ;; Copyright (C) 2024  Samuel W. Flint
 
 ;; Author: Samuel W. Flint <me@samuelwflint.com>
-;; version: 0.2.0
+;; Version: 0.2.0
 ;; Package-Requires: ((universal-sidecar "2.5.0") (denote "2.2.4") (emacs "27.1"))
 ;; Keywords: convenience, files, notes, hypermedia
 ;; URL: https://git.sr.ht/~swflint/denote-sections

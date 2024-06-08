@@ -3,7 +3,12 @@
 ;; Copyright (C) 2024  Samuel W. Flint
 
 ;; Author: Samuel W. Flint <me@samuelwflint.com>
+;; Version: 0.2.0
+;; Package-Requires: ((emacs "26.1") (denote "2.2.4") (universal-sidecar "2.5.0") (citar-denote "2.2.2") (citar "1.4"))
 ;; Keywords: convenience, files, hypermedia, notes
+;; URL: https://git.sr.ht/~swflint/denote-sections
+;; SPDX-License-Identifier: GPL-3.0-or-later
+;; SPDX-FileCopyrightText: 2024 Samuel W. Flint <swflint@flintfam.org>
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -49,7 +54,7 @@
 
 ;; Formatted Abstract Section
 
-;; TODO: Get *raw* and use pandoc to format as org
+;; TODO: Get *raw* and use pandoc to format as org?
 (universal-sidecar-define-section denote-citar-sections-abstract-section ((title "Abstract:"))
                                   (:predicate (stringp buffer-file-name))
   "Display a formatted abstract for BUFFER in SIDECAR.
