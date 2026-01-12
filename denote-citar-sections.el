@@ -3,8 +3,8 @@
 ;; Copyright (C) 2024  Samuel W. Flint
 
 ;; Author: Samuel W. Flint <me@samuelwflint.com>
-;; Version: 0.2.0
-;; Package-Requires: ((emacs "26.1") (denote "2.2.4") (universal-sidecar "2.5.0") (citar-denote "2.2.2") (citar "1.4"))
+;; Version: 0.3.0
+;; Package-Requires: ((emacs "26.1") (denote "2.2.4") (universal-sidecar "1.5.0") (citar-denote "2.2.2") (citar "1.4"))
 ;; Keywords: convenience, files, hypermedia, notes
 ;; URL: https://git.sr.ht/~swflint/denote-sections
 ;; SPDX-License-Identifier: GPL-3.0-or-later
