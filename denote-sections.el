@@ -46,6 +46,7 @@
 (defvar-local denote-sections-backlinks-cache nil
   "Cache data for backlinks.")
 
+;; TODO Use Denote 4.0.0 and `denote-retrieve-groups-xref-query' or similar
 (defun denote-sections-backlinks--get-backlinks (buffer)
   "Get denote backlinks for BUFFER."
   (with-current-buffer buffer
@@ -57,10 +58,12 @@
                   (dir (denote-directory))
                   (xref-alist (xref--analyze (xref-matches-in-files id (denote-directory-files nil :omit-current :text-only)))))
         (setq-local denote-sections-backlinks-cache xref-alist)))))
+;; TODO: Pre-process into single objects
 
 (universal-sidecar-define-section denote-sections-backlinks-section () (:predicate (stringp buffer-file-name))
   "Display backlinks for denote buffers."
   (when-let* ((backlinks (denote-sections-backlinks--get-backlinks buffer)))
+    ;; TODO: Display count of backlinks
     (universal-sidecar-insert-section denote-sections-backlinks-section "Backlinks:"
       (insert (universal-sidecar-fontify-as org-mode ()
                 (with-temp-buffer
