@@ -3,7 +3,7 @@
 ;; Copyright (C) 2024  Samuel W. Flint
 
 ;; Author: Samuel W. Flint <me@samuelwflint.com>
-;; Version: 0.3.0
+;; Version: 0.3.1
 ;; Package-Requires: ((emacs "26.1") (denote "2.2.4") (universal-sidecar "1.5.0") (citar-denote "2.2.2") (citar "1.4"))
 ;; Keywords: convenience, files, hypermedia, notes
 ;; URL: https://git.sr.ht/~swflint/denote-sections
@@ -56,7 +56,8 @@
 
 ;; TODO: Get *raw* and use pandoc to format as org?
 (universal-sidecar-define-section denote-citar-sections-abstract-section ((title "Abstract:"))
-                                  (:predicate (stringp buffer-file-name))
+                                  (:predicate (and (stringp buffer-file-name)
+                                                   (file-exists-p buffer-file-name)))
   "Display a formatted abstract for BUFFER in SIDECAR.
 
 The section TITLE is customizable via keyword argument."
@@ -71,7 +72,8 @@ The section TITLE is customizable via keyword argument."
 
 ;; TODO: Use universal-sidecar-citeproc?
 (universal-sidecar-define-section denote-citar-sections-reference-section ((title "Reference:"))
-                                  (:predicate (stringp buffer-file-name))
+                                  (:predicate (and (stringp buffer-file-name)
+                                                   (file-exists-p buffer-file-name)))
   "Display a formatted reference for BUFFER in SIDECAR, with TITLE."
   (when-let* ((key (car (denote-citar-sections--get-keys buffer))))
     (universal-sidecar-insert-section denote-citar-sections-reference-section title
